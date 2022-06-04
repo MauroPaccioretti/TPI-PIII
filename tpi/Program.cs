@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using tpi.DBContexts;
+using tpi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<AppTPIContext>(dbContextOptions => dbContextOptions.UseSqlite("Data Source=AppDB.db"));
+builder.Services.AddDbContext<AppTPIContext>(dbContextOptions => dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:AppTPIDBConnectionString"]));
+builder.Services.AddScoped<IAppDBRepository, AppDBRespository>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
