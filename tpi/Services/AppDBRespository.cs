@@ -13,13 +13,23 @@ namespace tpi.Services
             _context = context;
         }
 
-        public Persona? GetPersona(int id)
+        public Persona? GetPersonaById(int id)
         {
             return _context.Personas.Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public Persona? GetPersonaByEmailAndPassword(string? email, string? password)
+        {
+            return _context.Personas.Where(p => p.Email == email && p.Password == password ).Include(p => p.TipoPersona).FirstOrDefault();
         }
         public IEnumerable<Persona> GetPersonas()
         {
             return _context.Personas.Include(p => p.TipoPersona).ToList();
+        }
+
+        public IEnumerable<TipoPersona> GetTiposPersona()
+        {
+            return _context.TiposPersona.ToList();
         }
 
         public TipoPersona? GetTipoPersona(int idPersona)

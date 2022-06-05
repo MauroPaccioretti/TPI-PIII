@@ -22,19 +22,17 @@ namespace tpi.Controllers
         {
             var personas = _appDBRespository.GetPersonas();
 
-            /*var resultados = new List<CiudadSinPuntosDeInteresDto>();
-            foreach (var ciudad in ciudades)
-            {
-                resultados.Add(new CiudadSinPuntosDeInteresDto {
-                    Id = ciudad.Id,
-                    Descripcion = ciudad.Descripcion,
-                    Nombre = ciudad.Nombre
-                });
-            }*/ //Esto ya no lo usamos porque ahora todo ese trabajo lo hace automapper.
-
             return Ok(_mapper.Map<IEnumerable<PersonaDTO>>(personas));
 
-            //return Ok(_ciudadesData.Ciudades);
+  
+        }
+
+        [HttpGet("tipos")]
+        public ActionResult<IEnumerable<TipoPersonaDTO>> GetTipoPersonas()
+        {
+            var tiposPersonas = _appDBRespository.GetTiposPersona();
+
+            return Ok(_mapper.Map<IEnumerable<TipoPersonaDTO>>(tiposPersonas));
         }
 
     }

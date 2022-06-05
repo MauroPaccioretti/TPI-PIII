@@ -2,11 +2,12 @@
 
 namespace tpi.AutoMapperProfiles
 {
-    public class TipoPersona : Profile
+    public class TipoPersonaProfile : Profile
     {
-        public TipoPersona()
+        public TipoPersonaProfile()
         {
             CreateMap<Models.TipoPersonaDTO, Entities.TipoPersona>();
+            CreateMap<Entities.TipoPersona, Models.TipoPersonaDTO>();
         }
     }
 }
