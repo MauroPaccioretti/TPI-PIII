@@ -5,9 +5,9 @@ using tpi.Models;
 
 namespace tpi.Controllers
 {
-    //[Authorize]
-    [Route("api/users")]
     [ApiController]
+    [Authorize]
+    [Route("api/users")]
     public class UserController : ControllerBase
     {
         [HttpGet]

@@ -44,7 +44,7 @@ namespace tpi.Controllers
             //Paso 2: Crear el token
             // symetric security key
             var claveDeSeguridad = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"]));
-            var asd = _config["Authentication:SecretForKey"];
+            
             //signin credentials
             var credenciales = new SigningCredentials(claveDeSeguridad, SecurityAlgorithms.HmacSha256);
 
@@ -68,10 +68,10 @@ namespace tpi.Controllers
             return Ok(tokenToReturn);
         }
 
-        private Usuario ValidarCredenciales(string? userName, string? password)
-        {
-            return new Usuario(1, "nbologna", "123456", "Nicolas", "Bologna");
-        }
+        //private Usuario ValidarCredenciales(string? userName, string? password)
+        //{
+        //    return new Usuario(1, "nbologna", "123456", "Nicolas", "Bologna");
+        //}
 
         private PersonaDTO? ValidarCredencialesPersona(string? email, string? password)
         {
@@ -79,23 +79,23 @@ namespace tpi.Controllers
             return _mapper.Map<PersonaDTO?>(persona);
         }
 
-        private class Usuario //Es una clase a modo de prueba para el ejemplo
-        {
-            public Usuario(int id, string userName, string password, string apellido, string nombre)
-            {
-                Id = id;
-                UserName = userName;
-                Password = password;
-                Apellido = apellido;
-                Nombre = nombre;
-            }
+        //private class Usuario //Es una clase a modo de prueba para el ejemplo
+        //{
+        //    public Usuario(int id, string userName, string password, string apellido, string nombre)
+        //    {
+        //        Id = id;
+        //        UserName = userName;
+        //        Password = password;
+        //        Apellido = apellido;
+        //        Nombre = nombre;
+        //    }
 
-            public int Id { get; set; }
-            public string UserName { get; set; }
-            public string Password { get; set; }
-            public string Nombre { get; set; }
-            public string Apellido { get; set; }
-        }
+        //    public int Id { get; set; }
+        //    public string UserName { get; set; }
+        //    public string Password { get; set; }
+        //    public string Nombre { get; set; }
+        //    public string Apellido { get; set; }
+        //}
     }
 
 }

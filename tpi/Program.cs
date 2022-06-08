@@ -15,9 +15,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Creamos / inyectamos context
 builder.Services.AddDbContext<AppTPIContext>(dbContextOptions => dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:AppTPIDBConnectionString"]));
+
+
+// inyectamos repository
 builder.Services.AddScoped<IAppDBRepository, AppDBRespository>();
+
+// inyectamos AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+// Agregamos el servicio de autenticacion, con el token
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
 {
@@ -43,6 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// configuracion CORS
 app.UseCors(x => x
     .AllowAnyOrigin()
     .AllowAnyMethod()
@@ -52,10 +61,11 @@ app.UseCors(x => x
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseAuthentication();
 
 app.Run();
