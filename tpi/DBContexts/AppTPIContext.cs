@@ -33,7 +33,8 @@ namespace tpi.DBContexts
             };
             modelBuilder.Entity<PersonType>().HasData(personTypes);
 
-            modelBuilder.Entity<Person>().HasData(
+            var persons = new Person[3]
+            {
                 new Person("Esteban Quito", "superadmin@email.com", "superadmin")
                 {
                     Id = 1,
@@ -50,7 +51,8 @@ namespace tpi.DBContexts
                     PersonTypeId = personTypes[2].Id,
                 }
             };
-            modelBuilder.Entity<Persona>().HasData(personas);
+            
+            modelBuilder.Entity<Person>().HasData(persons);
 
             var geographicBlocks = new GeographicBlock[3]
             {
