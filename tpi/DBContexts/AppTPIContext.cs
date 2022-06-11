@@ -7,6 +7,7 @@ namespace tpi.DBContexts
     {
         public DbSet<Persona> Personas { get; set; }
         public DbSet<TipoPersona> TiposPersona { get; set; }
+        public DbSet<GeographicBlock> GeographicBlocks { get; set; }
 
         public AppTPIContext(DbContextOptions<AppTPIContext> options) : base(options)
         {
@@ -32,7 +33,8 @@ namespace tpi.DBContexts
             };
             modelBuilder.Entity<TipoPersona>().HasData(tiposPersonas);
 
-            modelBuilder.Entity<Persona>().HasData(
+            var personas = new Persona[3]
+            {
                 new Persona("Esteban Quito", "superadmin@email.com", "superadmin")
                 {
                     Id = 1,
@@ -48,7 +50,34 @@ namespace tpi.DBContexts
                     Id = 3,
                     TipoPersonaId = tiposPersonas[2].Id,
                 }
-                );
+            };
+            modelBuilder.Entity<Persona>().HasData(personas);
+
+            var geographicBlocks = new GeographicBlock[3]
+            {
+                new GeographicBlock()
+                {
+                    Id = 1,
+                    Name = "A",
+                    Price = 100
+                },
+                new GeographicBlock()
+                {
+                    Id = 2,
+                    Name = "B",
+                    Price = 200
+                },
+                new GeographicBlock()
+                {
+                    Id = 3,
+                    Name = "C",
+                    Price = 300
+                },
+            };
+            modelBuilder.Entity<GeographicBlock>().HasData(geographicBlocks);
+
+            // AGREGAR 8 Entities faltantes
+
             base.OnModelCreating(modelBuilder);
 
         }
