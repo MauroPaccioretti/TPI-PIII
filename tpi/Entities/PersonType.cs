@@ -2,16 +2,16 @@
 
 namespace tpi.Entities
 {
-    public class TipoPersona
+    public class PersonType
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Tipo { get; set; }
+        public string Type { get; set; }
 
-        public TipoPersona(string tipo)
+        public PersonType(string type)
         {
-            Tipo = tipo;
+            Type = type;
         }
     }
 }
