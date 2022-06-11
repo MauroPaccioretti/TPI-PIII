@@ -25,7 +25,7 @@ namespace tpi.Entities
         public string Password { get; set; }
 
 
-        [ForeignKey("TipoPersonaId")]
+        [ForeignKey("PersonTypeId")]
         public PersonType? PersonType { get; set; }
         public int PersonTypeId { get; set; }
 
