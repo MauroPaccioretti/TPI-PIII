@@ -6,8 +6,8 @@ namespace tpi.AutoMapperProfiles
     {
         public TipoPersonaProfile()
         {
-            CreateMap<Models.TipoPersonaDTO, Entities.TipoPersona>();
-            CreateMap<Entities.TipoPersona, Models.TipoPersonaDTO>();
+            CreateMap<Models.PersonTypeDTO, Entities.PersonType>();
+            CreateMap<Entities.PersonType, Models.PersonTypeDTO>();
         }
     }
 }

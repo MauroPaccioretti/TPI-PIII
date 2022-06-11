@@ -5,8 +5,8 @@ namespace tpi.DBContexts
 {
     public class AppTPIContext : DbContext
     {
-        public DbSet<Persona> Personas { get; set; }
-        public DbSet<TipoPersona> TiposPersona { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<PersonType> PersonTypes { get; set; }
         public DbSet<GeographicBlock> GeographicBlocks { get; set; }
 
         public AppTPIContext(DbContextOptions<AppTPIContext> options) : base(options)
@@ -16,39 +16,38 @@ namespace tpi.DBContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            var tiposPersonas = new TipoPersona[3]
+            var personTypes = new PersonType[3]
             {
-                new TipoPersona("Super Admin")
+                new PersonType("Super Admin")
                 {
                     Id = 1,
                 },
-                new TipoPersona("Admin")
+                new PersonType("Admin")
                 {
                     Id= 2,
                 },
-                new TipoPersona("Usuario")
+                new PersonType("Usuario")
                 {
                     Id=3,
                 }
             };
-            modelBuilder.Entity<TipoPersona>().HasData(tiposPersonas);
+            modelBuilder.Entity<PersonType>().HasData(personTypes);
 
-            var personas = new Persona[3]
-            {
-                new Persona("Esteban Quito", "superadmin@email.com", "superadmin")
+            modelBuilder.Entity<Person>().HasData(
+                new Person("Esteban Quito", "superadmin@email.com", "superadmin")
                 {
                     Id = 1,
-                    TipoPersonaId = tiposPersonas[0].Id,
+                    PersonTypeId = personTypes[0].Id,
                 },
-                new Persona("Igor Dito", "admin@email.com", "admin")
+                new Person("Igor Dito", "admin@email.com", "admin")
                 {
                     Id = 2,
-                    TipoPersonaId = tiposPersonas[1].Id,
+                    PersonTypeId = personTypes[1].Id,
                 },
-                new Persona("Armando Escandalo", "user@email.com", "user")
+                new Person("Armando Escandalo", "user@email.com", "user")
                 {
                     Id = 3,
-                    TipoPersonaId = tiposPersonas[2].Id,
+                    PersonTypeId = personTypes[2].Id,
                 }
             };
             modelBuilder.Entity<Persona>().HasData(personas);

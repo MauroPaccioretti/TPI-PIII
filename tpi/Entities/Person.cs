@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tpi.Entities
 {
-    public class Persona
+    public class Person
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -26,10 +26,10 @@ namespace tpi.Entities
 
 
         [ForeignKey("TipoPersonaId")]
-        public TipoPersona? TipoPersona { get; set; }
-        public int TipoPersonaId { get; set; }
+        public PersonType? PersonType { get; set; }
+        public int PersonTypeId { get; set; }
 
-        public Persona(string name, string email, string password)
+        public Person(string name, string email, string password)
         {
             Name = name.Trim();
             Email = email;

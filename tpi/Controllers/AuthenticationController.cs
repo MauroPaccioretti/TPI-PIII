@@ -35,24 +35,24 @@ namespace tpi.Controllers
         public ActionResult<string> Authenticate(AuthenticationRequestBody authenticationRequestBody)
         {
             //Paso 1: Validamos las credenciales
-            //var usuario = ValidarCredenciales(authenticationRequestBody.UserName, authenticationRequestBody.Password);
-            var usuario = ValidarCredencialesPersona(authenticationRequestBody.Email, authenticationRequestBody.Password);
+            //var user = ValidarCredenciales(authenticationRequestBody.UserName, authenticationRequestBody.Password);
+            var user = ValidarCredencialesPersona(authenticationRequestBody.Email, authenticationRequestBody.Password);
 
-            if (usuario is null)
+            if (user is null)
                 return Unauthorized();
 
             //Paso 2: Crear el token
             // symetric security key
-            var claveDeSeguridad = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"]));
             
             //signin credentials
-            var credenciales = new SigningCredentials(claveDeSeguridad, SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claimsForToken = new List<Claim>();
-            claimsForToken.Add(new Claim("sub", usuario.Id.ToString()));
-            claimsForToken.Add(new Claim("given_name", usuario.Name));
-            claimsForToken.Add(new Claim("rol", usuario.TipoPersona.Tipo));
-            claimsForToken.Add(new Claim(ClaimTypes.Role, usuario.TipoPersona.Tipo));
+            claimsForToken.Add(new Claim("sub", user.Id.ToString()));
+            claimsForToken.Add(new Claim("given_name", user.Name));
+            claimsForToken.Add(new Claim("rol", user.PersonType.Type));
+            claimsForToken.Add(new Claim(ClaimTypes.Role, user.PersonType.Type));
 
             var jwtSecurityToken = new JwtSecurityToken(
               _config["Authentication:Issuer"],
@@ -60,7 +60,7 @@ namespace tpi.Controllers
               claimsForToken,
               DateTime.UtcNow,
               DateTime.UtcNow.AddHours(1),
-              credenciales);
+              credentials);
 
             var tokenToReturn = new JwtSecurityTokenHandler()
                 .WriteToken(jwtSecurityToken);
@@ -68,20 +68,20 @@ namespace tpi.Controllers
             return Ok(tokenToReturn);
         }
 
-        //private Usuario ValidarCredenciales(string? userName, string? password)
+        //private user ValidarCredenciales(string? userName, string? password)
         //{
-        //    return new Usuario(1, "nbologna", "123456", "Nicolas", "Bologna");
+        //    return new user(1, "nbologna", "123456", "Nicolas", "Bologna");
         //}
 
-        private PersonaDTO? ValidarCredencialesPersona(string? email, string? password)
+        private PersonDTO? ValidarCredencialesPersona(string? email, string? password)
         {
-            var persona = _appDBRespository.GetPersonaByEmailAndPassword(email, password);
-            return _mapper.Map<PersonaDTO?>(persona);
+            var person = _appDBRespository.GetPersonByEmailAndPassword(email, password);
+            return _mapper.Map<PersonDTO?>(person);
         }
 
-        //private class Usuario //Es una clase a modo de prueba para el ejemplo
+        //private class user //Es una clase a modo de prueba para el ejemplo
         //{
-        //    public Usuario(int id, string userName, string password, string apellido, string nombre)
+        //    public user(int id, string userName, string password, string apellido, string nombre)
         //    {
         //        Id = id;
         //        UserName = userName;

@@ -13,31 +13,31 @@ namespace tpi.Services
             _context = context;
         }
 
-        public Persona? GetPersonaById(int id)
+        public Person? GetPersonById(int id)
         {
-            return _context.Personas.Where(p => p.Id == id).FirstOrDefault();
+            return _context.Persons.Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public Persona? GetPersonaByEmailAndPassword(string? email, string? password)
+        public Person? GetPersonByEmailAndPassword(string? email, string? password)
         {
-            return _context.Personas.Where(p => p.Email == email && p.Password == password ).Include(p => p.TipoPersona).FirstOrDefault();
+            return _context.Persons.Where(p => p.Email == email && p.Password == password ).Include(p => p.PersonType).FirstOrDefault();
         }
-        public IEnumerable<Persona> GetPersonas()
+        public IEnumerable<Person> GetPersons()
         {
-            return _context.Personas.Include(p => p.TipoPersona).ToList();
-        }
-
-        public IEnumerable<TipoPersona> GetTiposPersona()
-        {
-            return _context.TiposPersona.ToList();
+            return _context.Persons.Include(p => p.PersonType).ToList();
         }
 
-        public TipoPersona? GetTipoPersona(int idPersona)
+        public IEnumerable<PersonType> GetPersonTypes()
         {
-            return _context.Personas.FirstOrDefault(p => p.Id == idPersona)?.TipoPersona;
+            return _context.PersonTypes.ToList();
         }
 
-        public bool GuardarCambios()
+        public PersonType? GetPersonType(int idPersona)
+        {
+            return _context.Persons.FirstOrDefault(p => p.Id == idPersona)?.PersonType;
+        }
+
+        public bool SaveChanges()
         {
             return (_context.SaveChanges() >=0);
         }

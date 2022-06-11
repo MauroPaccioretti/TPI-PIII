@@ -7,7 +7,7 @@ namespace tpi.AutoMapperProfiles
 
         public PersonaProfile()
         {
-            CreateMap<Entities.Persona, Models.PersonaDTO>();
+            CreateMap<Entities.Person, Models.PersonDTO>();
 
         }
     }
