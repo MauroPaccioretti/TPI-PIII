@@ -67,15 +67,9 @@ namespace tpi.Services
 
         public List<Land> GetExpensesByUser(int personId)
         {
-            var expenses = _context.Expenses.Where(p => p.PersonId == personId).ToList();
-            var expList = expenses.ToList();
-            var lands = _context.Lands.Where(p => p.PersonId == personId).Select(l=>l.Id);
 
-            var landsList = lands.ToList();
-            
             return _context.Lands
                 .Where(p => p.PersonId == personId)
-                .Include(e => e.Expense)
                 .ToList();
         }
 
