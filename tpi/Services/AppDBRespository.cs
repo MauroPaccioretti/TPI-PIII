@@ -47,9 +47,37 @@ namespace tpi.Services
                 return null;
             var table = _context.GetType().GetMethod("Set", types: Type.EmptyTypes)?.MakeGenericMethod(type).Invoke(_context, null);
             return table;
-                        
         }
 
+        public List<Land> GetUserLands(int idPerson)
+        {
+            return _context.Lands
+                .Where(p => p.PersonId == idPerson)
+                .Include(a => a.ActivityMain)
+                .Include(a => a.ActivityStaffSize)
+                .Include(a => a.ActivityWorkLoad)
+                .Include(e => e.EnvironmentalGases)
+                .Include(e => e.EnvironmentalWaste)
+                .Include(e => e.EnvironmentalWaterConsumption)
+                .Include(g => g.GeographicArea)
+                .Include(g => g.GeographicBlock)
+                .Include(g => g.GeographicCoveredArea)
+                .ToList();
+        }
+
+        public List<Land> GetExpensesByUser(int personId)
+        {
+            var expenses = _context.Expenses.Where(p => p.PersonId == personId).ToList();
+            var expList = expenses.ToList();
+            var lands = _context.Lands.Where(p => p.PersonId == personId).Select(l=>l.Id);
+
+            var landsList = lands.ToList();
+            
+            return _context.Lands
+                .Where(p => p.PersonId == personId)
+                .Include(e => e.Expense)
+                .ToList();
+        }
 
         public bool SaveChanges()
         {

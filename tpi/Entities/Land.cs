@@ -48,8 +48,7 @@ namespace tpi.Entities
         [ForeignKey("PersonId")]
         public Person? Person { get; set; }
         public int PersonId { get; set; }
-
-
+       
 
     }
 }
