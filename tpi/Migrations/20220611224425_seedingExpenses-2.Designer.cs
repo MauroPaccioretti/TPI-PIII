@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tpi.DBContexts;
 
@@ -10,9 +11,10 @@ using tpi.DBContexts;
 namespace tpi.Migrations
 {
     [DbContext(typeof(AppTPIContext))]
-    partial class AppTPIContextModelSnapshot : ModelSnapshot
+    [Migration("20220611224425_seedingExpenses-2")]
+    partial class seedingExpenses2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.5");
@@ -257,14 +259,14 @@ namespace tpi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("DatePaid")
-                        .HasColumnType("Date");
-
                     b.Property<DateTime?>("ExpirationDate")
-                        .HasColumnType("Date");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("LandId")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("Period")
+                        .HasColumnType("TEXT");
 
                     b.Property<double>("TotalCost")
                         .HasColumnType("REAL");
@@ -279,190 +281,190 @@ namespace tpi.Migrations
                         new
                         {
                             Id = 1,
-                            DatePaid = new DateTime(2022, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 1,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 20300.0
                         },
                         new
                         {
                             Id = 2,
-                            DatePaid = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 1,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 18400.0
                         },
                         new
                         {
                             Id = 3,
-                            ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 1,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 22800.0
                         },
                         new
                         {
                             Id = 4,
-                            DatePaid = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 2,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 20900.0
                         },
                         new
                         {
                             Id = 5,
-                            DatePaid = new DateTime(2022, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 2,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 18100.0
                         },
                         new
                         {
                             Id = 6,
-                            DatePaid = new DateTime(2022, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 2,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 20000.0
                         },
                         new
                         {
                             Id = 7,
-                            DatePaid = new DateTime(2022, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 3,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 15100.0
                         },
                         new
                         {
                             Id = 8,
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 3,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 25600.0
                         },
                         new
                         {
                             Id = 9,
-                            ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 3,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 20000.0
                         },
                         new
                         {
                             Id = 10,
-                            DatePaid = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 4,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 25500.0
                         },
                         new
                         {
                             Id = 11,
-                            DatePaid = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 4,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 22400.0
                         },
                         new
                         {
                             Id = 12,
-                            DatePaid = new DateTime(2022, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 4,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 28300.0
                         },
                         new
                         {
                             Id = 13,
-                            DatePaid = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 5,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 21500.0
                         },
                         new
                         {
                             Id = 14,
-                            DatePaid = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 5,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 21100.0
                         },
                         new
                         {
                             Id = 15,
-                            DatePaid = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 5,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 30400.0
                         },
                         new
                         {
                             Id = 16,
-                            DatePaid = new DateTime(2022, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 6,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 22100.0
                         },
                         new
                         {
                             Id = 17,
-                            DatePaid = new DateTime(2022, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 6,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 21400.0
                         },
                         new
                         {
                             Id = 18,
-                            DatePaid = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 6,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 21800.0
                         },
                         new
                         {
                             Id = 19,
-                            DatePaid = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 7,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 25500.0
                         },
                         new
                         {
                             Id = 20,
-                            DatePaid = new DateTime(2022, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 7,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 1100.0
                         },
                         new
                         {
                             Id = 21,
-                            DatePaid = new DateTime(2022, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 7,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 21100.0
                         },
                         new
                         {
                             Id = 22,
-                            DatePaid = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 8,
+                            Period = new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 10100.0
                         },
                         new
                         {
                             Id = 23,
-                            DatePaid = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 8,
+                            Period = new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 10500.0
                         },
                         new
                         {
                             Id = 24,
-                            DatePaid = new DateTime(2022, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ExpirationDate = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpirationDate = new DateTime(2022, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LandId = 8,
+                            Period = new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             TotalCost = 12100.0
                         });
                 });

@@ -10,5 +10,6 @@ namespace tpi.Services
         PersonType? GetPersonType(int idPersona);
         bool SaveChanges();
         IEnumerable<PersonType> GetPersonTypes();
+        public object? GetAuxLandProperties(string databaseSet);
     }
 }
