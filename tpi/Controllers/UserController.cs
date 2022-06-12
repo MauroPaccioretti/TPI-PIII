@@ -16,11 +16,12 @@ namespace tpi.Controllers
             //var roleClaim = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("rol", StringComparison.InvariantCultureIgnoreCase));
             var nameClaim = User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.GivenName))?.Value;
             var roleClaim = User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Role))?.Value;
+            var idClaim = User.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier))?.Value;
             
-            if (roleClaim == null || nameClaim == null)
+            if (roleClaim == null || nameClaim == null || idClaim == null)
                 return BadRequest("Usuario no encontrado");
 
-            UserDTO user = new UserDTO(nameClaim, roleClaim);
+            UserDTO user = new UserDTO(nameClaim, roleClaim, idClaim);
 
             return Ok(user);
         }

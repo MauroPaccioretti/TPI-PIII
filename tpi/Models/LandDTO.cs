@@ -5,7 +5,6 @@ namespace tpi.Models
     public class LandDTO
     {
         public int Id { get; set; }
-
         public ActivityMain? ActivityMain { get; set; }
         public ActivityStaffSize? ActivityStaffSize { get; set; }
         public ActivityWorkLoad? ActivityWorkLoad { get; set; }
@@ -15,5 +14,22 @@ namespace tpi.Models
         public GeographicArea? GeographicArea { get; set; }
         public GeographicBlock? GeographicBlock { get; set; }
         public GeographicCoveredArea? GeographicCoveredArea { get; set; }
+        public decimal? CostActivity
+        {
+            get { return ActivityMain?.Price + ActivityStaffSize?.Price + ActivityWorkLoad?.Price; }
+        }
+        public decimal? CostEnvironmental
+        {
+            get { return EnvironmentalGases?.Price + EnvironmentalWaste?.Price + EnvironmentalWaterConsumption?.Price; }
+        }
+        public decimal? CostGeographic
+        {
+            get { return GeographicArea?.Price + GeographicBlock?.Price + GeographicCoveredArea?.Price; }
+        }
+        public decimal? CostTotal
+        {
+            get { return CostActivity + CostEnvironmental + CostGeographic; }
+        }
+
     }
 }

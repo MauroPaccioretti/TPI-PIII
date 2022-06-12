@@ -187,19 +187,19 @@ namespace tpi.DBContexts
                 new ActivityWorkLoad()
                 {
                     Id = 1,
-                    Name = "Micro Empresa",
+                    Name = "Sólo días hábiles",
                     Price = 100
                 },
                 new ActivityWorkLoad()
                 {
                     Id = 2,
-                    Name = "PyME",
+                    Name = "Todos los días (diurno)",
                     Price = 4000
                 },
                 new ActivityWorkLoad()
                 {
                     Id = 3,
-                    Name = "Grande",
+                    Name = "24/7",
                     Price = 7000
                 },
             };

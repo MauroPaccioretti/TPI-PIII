@@ -53,6 +53,8 @@ namespace tpi.Controllers
             claimsForToken.Add(new Claim("given_name", user.Name));
             claimsForToken.Add(new Claim("rol", user.PersonType.Type));
             claimsForToken.Add(new Claim(ClaimTypes.Role, user.PersonType.Type));
+            claimsForToken.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+
 
             var jwtSecurityToken = new JwtSecurityToken(
               _config["Authentication:Issuer"],
