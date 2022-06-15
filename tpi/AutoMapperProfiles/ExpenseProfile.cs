@@ -8,6 +8,7 @@ namespace tpi.AutoMapperProfiles
         {
             CreateMap<Entities.Expense, Models.ExpenseDTO>();
             CreateMap<Models.ExpenseDTO, Entities.Expense>();
+            CreateMap<Entities.Expense, Models.ExpenseUnpaidDTO>();
         }
     }
 }

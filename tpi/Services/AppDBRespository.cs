@@ -72,6 +72,10 @@ namespace tpi.Services
                 .Where(p => p.PersonId == personId)
                 .ToList();
         }
+        public List<Expense> GetExpenses()
+        {
+            return _context.Expenses.ToList();
+        }
 
         public bool SaveChanges()
         {
