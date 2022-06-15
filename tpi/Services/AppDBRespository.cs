@@ -65,6 +65,11 @@ namespace tpi.Services
                 .ToList();
         }
 
+        public object? GetLandById(int idLand)
+        {
+            return _context.Lands.Where(l => l.Id == idLand).FirstOrDefault();
+        }
+
         public List<Land> GetExpensesByUser(int personId)
         {
 

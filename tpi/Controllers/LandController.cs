@@ -31,5 +31,28 @@ namespace tpi.Controllers
                 return BadRequest();
             }
         }
+        [HttpPut("{idLand}")]
+        public ActionResult EditLand(int idLand, LandToUpdateDTO landToUpdate)
+        {
+
+            try
+            {
+                var land = _appDBRespository.GetLandById(idLand);
+                if (land == null)
+                    return NotFound();
+
+                _mapper.Map(landToUpdate, land);
+                _appDBRespository.SaveChanges();
+                return Ok("Updated!");
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+
+        }
+
     }
 }
