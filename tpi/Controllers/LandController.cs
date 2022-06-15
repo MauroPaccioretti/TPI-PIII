@@ -32,7 +32,7 @@ namespace tpi.Controllers
             }
         }
         [HttpPut("{idLand}")]
-        public ActionResult EditLand(int idLand, LandToUpdateDTO landToUpdate)
+        public ActionResult<LandToUpdateDTO> EditLand(int idLand, LandToUpdateDTO landToUpdate)
         {
 
             try
