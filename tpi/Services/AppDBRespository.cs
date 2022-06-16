@@ -1,17 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using tpi.DBContexts;
 using tpi.Entities;
+using tpi.Models;
 
 namespace tpi.Services
 {
     public class AppDBRespository : IAppDBRepository
     {
         private readonly AppTPIContext _context;
+        private readonly IMapper _mapper;
 
-        public AppDBRespository(AppTPIContext context)
+        public AppDBRespository(AppTPIContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public Person? GetPersonById(int id)
@@ -77,6 +81,25 @@ namespace tpi.Services
         {
             return (_context.SaveChanges() >=0);
         }
+        public List<Expense> AddNewExpenses(ExpenseDTO newExpense)
+        {
+            var lands = _context.Lands.ToList();
+            var expirationMonth = newExpense.ExpirationDate.Value.Month;
+            var expirationYear = newExpense.ExpirationDate.Value.Year;
+            var expenseList = new List<Expense>();
+            foreach (var land in lands)
+            {
+                var landDto = _mapper.Map<LandDTO>(land);
+                var cost = Convert.ToDouble(landDto.CostTotal);
+                var idLand = landDto.Id;
+                var idExpense = _context.Expenses.Max(e => e.Id);
+                idExpense++;
+                var expense = new Expense(idExpense, idLand, new DateTime(expirationYear, expirationMonth, 10), null, cost);
+                expenseList.Add(expense);                
+            }
+            _context.Expenses.AddRange(expenseList);
+            return expenseList;
 
+        }
     }
 }

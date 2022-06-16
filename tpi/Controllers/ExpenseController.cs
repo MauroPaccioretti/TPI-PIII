@@ -31,5 +31,24 @@ namespace tpi.Controllers
                 return BadRequest();
             }
         }
+        [HttpPost()]
+        public ActionResult<List<ExpenseDTO>> GenerateExpenses(ExpenseToCreateDTO expense)
+        {
+            try
+            {
+                var newExpense = _mapper.Map<ExpenseDTO>(expense);
+                if (newExpense == null)
+                    return NotFound();
+                var expensesCreated = _appDBRespository.AddNewExpenses(newExpense);
+                _appDBRespository.SaveChanges();
+                return Ok(expensesCreated);
+            }
+            catch
+            {
+                return BadRequest();
+            } 
+            
+
+        }
     }
 }
