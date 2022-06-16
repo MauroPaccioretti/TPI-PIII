@@ -52,7 +52,20 @@ namespace tpi.Services
             var table = _context.GetType().GetMethod("Set", types: Type.EmptyTypes)?.MakeGenericMethod(type).Invoke(_context, null);
             return table;
         }
-
+        public List<Land> GetLands()
+        {
+            return _context.Lands
+                .Include(a => a.ActivityMain)
+                .Include(a => a.ActivityStaffSize)
+                .Include(a => a.ActivityWorkLoad)
+                .Include(e => e.EnvironmentalGases)
+                .Include(e => e.EnvironmentalWaste)
+                .Include(e => e.EnvironmentalWaterConsumption)
+                .Include(g => g.GeographicArea)
+                .Include(g => g.GeographicBlock)
+                .Include(g => g.GeographicCoveredArea)
+                .ToList();
+        }
         public List<Land> GetUserLands(int idPerson)
         {
             return _context.Lands
@@ -83,16 +96,18 @@ namespace tpi.Services
         }
         public List<Expense> AddNewExpenses(ExpenseDTO newExpense)
         {
-            var lands = _context.Lands.ToList();
+            var lands = _context.Lands;
+                
             var expirationMonth = newExpense.ExpirationDate.Value.Month;
             var expirationYear = newExpense.ExpirationDate.Value.Year;
             var expenseList = new List<Expense>();
+            var idExpense = _context.Expenses.Max(e => e.Id);
+            
             foreach (var land in lands)
             {
                 var landDto = _mapper.Map<LandDTO>(land);
                 var cost = Convert.ToDouble(landDto.CostTotal);
                 var idLand = landDto.Id;
-                var idExpense = _context.Expenses.Max(e => e.Id);
                 idExpense++;
                 var expense = new Expense(idExpense, idLand, new DateTime(expirationYear, expirationMonth, 10), null, cost);
                 expenseList.Add(expense);                

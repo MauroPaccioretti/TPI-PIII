@@ -16,7 +16,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Creamos / inyectamos context
-builder.Services.AddDbContext<AppTPIContext>(dbContextOptions => dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:AppTPIDBConnectionString"]));
+builder.Services.AddDbContext<AppTPIContext>(dbContextOptions => dbContextOptions.UseSqlite(builder.Configuration["ConnectionStrings:AppTPIDBConnectionString"]), ServiceLifetime.Scoped);
 
 
 // inyectamos repository
