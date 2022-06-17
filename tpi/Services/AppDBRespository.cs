@@ -96,7 +96,7 @@ namespace tpi.Services
         }
         public List<Expense> AddNewExpenses(ExpenseDTO newExpense)
         {
-            var lands = _context.Lands;
+            var lands = this.GetLands();
                 
             var expirationMonth = newExpense.ExpirationDate.Value.Month;
             var expirationYear = newExpense.ExpirationDate.Value.Year;
@@ -110,7 +110,9 @@ namespace tpi.Services
                 var idLand = landDto.Id;
                 idExpense++;
                 var expense = new Expense(idExpense, idLand, new DateTime(expirationYear, expirationMonth, 10), null, cost);
-                expenseList.Add(expense);                
+                expense.Land = land;
+                expenseList.Add(expense);
+
             }
             _context.Expenses.AddRange(expenseList);
             return expenseList;
