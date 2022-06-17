@@ -34,18 +34,22 @@ namespace tpi.Controllers
         [HttpPost()]
         public ActionResult<List<ExpenseDTO>> GenerateExpenses(ExpenseToCreateDTO expense)
         {
+            return BadRequest("sarasa");
             try
             {
                 var newExpense = _mapper.Map<ExpenseDTO>(expense);
                 if (newExpense == null)
                     return NotFound();
                 var expensesCreated = _appDBRespository.AddNewExpenses(newExpense);
-                _appDBRespository.SaveChanges();
-                return Ok(expensesCreated);
+                if (_appDBRespository.SaveChanges())
+                {
+                    return Ok(_mapper.Map<List<ExpenseDTO>>(expensesCreated));
+                }
+                return BadRequest("No se pudo actualizar la base de datos");
             }
             catch
             {
-                return BadRequest();
+                return BadRequest("Algo no salió bien");
             } 
             
 
