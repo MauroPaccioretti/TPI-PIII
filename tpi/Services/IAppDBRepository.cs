@@ -13,5 +13,6 @@ namespace tpi.Services
         public object? GetAuxLandProperties(string databaseSet);
         public List<Land> GetUserLands(int idPerson);
         public List<Land> GetExpensesByUser(int userId);
+        public Expense? GetExpenseById(int expenseId);
     }
 }

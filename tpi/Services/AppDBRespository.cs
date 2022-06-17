@@ -77,6 +77,11 @@ namespace tpi.Services
         {
             return (_context.SaveChanges() >=0);
         }
+        public Expense? GetExpenseById(int expenseId)
+        {
 
+            return _context.Expenses
+                .FirstOrDefault(e => e.Id == expenseId);
+        }
     }
 }
