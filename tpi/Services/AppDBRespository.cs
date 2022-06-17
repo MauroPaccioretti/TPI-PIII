@@ -123,5 +123,10 @@ namespace tpi.Services
             return expenseList;
 
         }
+
+        public Expense? GetExpenseById(int expenseId)
+        {
+            return _context.Expenses.FirstOrDefault(e => e.Id == expenseId);
+        }
     }
 }

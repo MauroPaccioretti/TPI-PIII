@@ -16,5 +16,6 @@ namespace tpi.Services
         public List<Land> GetExpensesByUser(int userId);
         public object? GetLandById(int idLand);
         public List<Expense> AddNewExpenses(ExpenseDTO newExpense);
+        public Expense? GetExpenseById(int expenseId);
     }
 }

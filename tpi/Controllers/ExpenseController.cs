@@ -54,5 +54,25 @@ namespace tpi.Controllers
             
 
         }
+        [HttpPut("{idExpense}")]
+        public ActionResult EnterPayment(int idExpense, ExpenseToUpdateDTO expenseWithDatePayment)
+        {
+            try
+            {
+                var expenseinDb = _appDBRespository.GetExpenseById(idExpense);
+                if (expenseinDb == null)
+                    return NotFound();
+                _mapper.Map(expenseWithDatePayment, expenseinDb);
+                _appDBRespository.SaveChanges();
+
+                return Ok("PaymentRegistered");
+            }
+            catch
+            {
+                return BadRequest();
+
+            }
+        }
     }
 }
+
