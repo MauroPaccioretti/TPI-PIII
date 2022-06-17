@@ -43,7 +43,7 @@ namespace tpi.Controllers
 
                 _mapper.Map(landToUpdate, land);
                 _appDBRespository.SaveChanges();
-                return Ok("Updated!");
+                return NoContent();
 
             }
             catch
