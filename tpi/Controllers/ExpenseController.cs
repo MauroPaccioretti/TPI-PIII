@@ -34,7 +34,6 @@ namespace tpi.Controllers
         [HttpPost()]
         public ActionResult<List<ExpenseDTO>> GenerateExpenses(ExpenseToCreateDTO expense)
         {
-            return BadRequest("sarasa");
             try
             {
                 var newExpense = _mapper.Map<ExpenseDTO>(expense);
@@ -62,6 +61,10 @@ namespace tpi.Controllers
                 var expenseinDb = _appDBRespository.GetExpenseById(idExpense);
                 if (expenseinDb == null)
                     return NotFound();
+                if (expenseinDb.DatePaid != null)
+                {
+                    return BadRequest("Ya pagada");
+                }
                 _mapper.Map(expenseWithDatePayment, expenseinDb);
                 _appDBRespository.SaveChanges();
 
