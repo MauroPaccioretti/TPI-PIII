@@ -17,14 +17,14 @@ namespace tpi.Controllers
             _mapper = mapper;
         }
         [HttpGet("{idUser}")]
-        public ActionResult<List<LandWithExpensesDTO>> GetExpensesByUSer(int idUser)
+        public ActionResult<List<ExpenseDTO>> GetExpensesByUSer(int idUser)
         {
             try
             {
                 var landWithExpenses = _appDBRespository.GetExpensesByUser(idUser);
                 if (landWithExpenses == null)
                     return NotFound();
-                return Ok(_mapper.Map<IEnumerable<LandWithExpensesDTO>>(landWithExpenses));
+                return Ok(_mapper.Map<List<IEnumerable<ExpenseDTO>>>(landWithExpenses));
             }
             catch
             {

@@ -87,11 +87,13 @@ namespace tpi.Services
             return _context.Lands.Where(l => l.Id == idLand).FirstOrDefault();
         }
 
-        public List<Land> GetExpensesByUser(int personId)
+        public List<List<Expense>> GetExpensesByUser(int personId)
         {
-
-            return _context.Lands
-                .Where(p => p.PersonId == personId)
+             return _context.Expenses
+                .Include(l => l.Land)
+                .Where(l => l.Land.PersonId == personId)
+                .GroupBy(x => x.LandId)
+                .Select(x => x.ToList())
                 .ToList();
         }
 
