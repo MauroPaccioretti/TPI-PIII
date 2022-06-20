@@ -13,6 +13,9 @@ namespace tpi.Services
         IEnumerable<PersonType> GetPersonTypes();
         public object? GetAuxLandProperties(string databaseSet);
         public List<Land> GetUserLands(int idPerson);
+        public List<Land> GetExpensesByUser(int userId);
+        public List<Expense> GetExpenses();
+        public List<Expense> GetExpensesUnpaid();
         public List<List<Expense>> GetExpensesByUser(int userId);
         public object? GetLandById(int idLand);
         public List<Expense> AddNewExpenses(ExpenseDTO newExpense);

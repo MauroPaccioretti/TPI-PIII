@@ -76,6 +76,21 @@ namespace tpi.Controllers
 
             }
         }
+        [HttpGet("unpaid")]
+        public ActionResult<List<ExpenseUnpaidDTO>> GetExpensesUnpaid()
+        {
+            try
+            {
+                var expensesUnpaid = _appDBRespository.GetExpensesUnpaid();
+                if (expensesUnpaid == null)
+                    return NotFound();
+                return Ok(_mapper.Map<IEnumerable<ExpenseUnpaidDTO>>(expensesUnpaid));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
 

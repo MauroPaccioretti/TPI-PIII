@@ -96,6 +96,14 @@ namespace tpi.Services
                 .Select(x => x.ToList())
                 .ToList();
         }
+        public List<Expense> GetExpenses()
+        {
+            return _context.Expenses.ToList();
+        }
+        public List<Expense> GetExpensesUnpaid()
+        {
+            return _context.Expenses.Where(e => e.ExpirationDate < e.DatePaid).ToList();
+        }
 
         public bool SaveChanges()
         {
