@@ -36,7 +36,7 @@ namespace tpi.Controllers
         {
             try
             {
-                var expensesUnpaid = _appDBRespository.GetExpenses().Where(e => e.ExpirationDate < e.DatePaid);
+                var expensesUnpaid = _appDBRespository.GetExpensesUnpaid();
                 if (expensesUnpaid == null)
                     return NotFound();
                 return Ok(_mapper.Map<IEnumerable<ExpenseUnpaidDTO>>(expensesUnpaid));

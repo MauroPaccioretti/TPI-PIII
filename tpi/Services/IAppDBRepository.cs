@@ -14,5 +14,6 @@ namespace tpi.Services
         public List<Land> GetUserLands(int idPerson);
         public List<Land> GetExpensesByUser(int userId);
         public List<Expense> GetExpenses();
+        public List<Expense> GetExpensesUnpaid();
     }
 }
