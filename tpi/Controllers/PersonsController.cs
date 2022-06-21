@@ -27,6 +27,16 @@ namespace tpi.Controllers
   
         }
 
+        [HttpGet("{idPerson}", Name = "GetPerson")]
+        public ActionResult<IEnumerable<PersonDTO>> GetPerson(int idPerson)
+        {
+            var person = _appDBRespository.GetPersonById(idPerson);
+
+            return Ok(_mapper.Map<PersonDTO>(person));
+
+
+        }
+
         [HttpGet("types")]
         public ActionResult<IEnumerable<PersonTypeDTO>> GetPersonTypes()
         {
@@ -34,6 +44,54 @@ namespace tpi.Controllers
 
             return Ok(_mapper.Map<IEnumerable<PersonTypeDTO>>(personTypes));
         }
+
+        [HttpDelete("{idPerson}")]
+        public ActionResult DeletePerson(int idPerson)
+        {
+            var personToDelete = _appDBRespository.GetPersonById(idPerson);
+            if (personToDelete == null)
+                return BadRequest();
+
+            _appDBRespository.DeletePerson(personToDelete);
+            _appDBRespository.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPost]
+        public ActionResult<PersonDTO> CreatePerson(PersonToCreateDTO person)
+        {
+            if (_appDBRespository.GetPersonByEmail(person.Email) is not null)
+            {
+                return BadRequest("Email ya registrado");
+            }
+            var newPerson = _mapper.Map<Entities.Person>(person);
+
+            var creationResponse = _appDBRespository.CreatePerson(newPerson);
+
+            if(creationResponse == 0)
+            {
+                return BadRequest("Verifique los datos ingresados");
+            }
+
+            var saveResponse =_appDBRespository.SaveChanges();
+            
+            if (saveResponse is false)
+            {
+                return BadRequest("Error al insertar los datos en la base de datos");
+            }
+
+            var personToReturn = _mapper.Map<PersonDTO>(newPerson);
+
+            return CreatedAtRoute(
+                "GetPerson",
+                new
+                {
+                    idPerson = personToReturn.Id
+                },
+                personToReturn); 
+        }
+
 
     }
 }

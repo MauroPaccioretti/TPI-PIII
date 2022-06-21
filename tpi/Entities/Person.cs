@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tpi.Entities
@@ -18,7 +19,6 @@ namespace tpi.Entities
         [Required]
         [EmailAddress(ErrorMessage = "Dirección de email inválida")]
         public string Email { get; set; }
-
 
         [Required]
         [MaxLength(50)]
