@@ -100,9 +100,10 @@ namespace tpi.Services
         {
             return _context.Expenses.ToList();
         }
-        public List<Expense> GetExpensesUnpaid()
+        public List<List<Expense>> GetExpensesUnpaid()
         {
-            return _context.Expenses.Where(e => e.ExpirationDate < e.DatePaid).ToList();
+            return _context.Expenses.Where(e => e.DatePaid == null).GroupBy(x => x.LandId)
+                .Select(x => x.ToList()).ToList();
         }
 
         public bool SaveChanges()

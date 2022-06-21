@@ -84,7 +84,7 @@ namespace tpi.Controllers
                 var expensesUnpaid = _appDBRespository.GetExpensesUnpaid();
                 if (expensesUnpaid == null)
                     return NotFound();
-                return Ok(_mapper.Map<IEnumerable<ExpenseUnpaidDTO>>(expensesUnpaid));
+                return Ok(_mapper.Map<List<IEnumerable<ExpenseUnpaidDTO>>>(expensesUnpaid));
             }
             catch
             {
