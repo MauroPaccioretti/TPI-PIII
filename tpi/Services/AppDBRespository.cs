@@ -113,9 +113,13 @@ namespace tpi.Services
         public List<Expense> AddNewExpenses(ExpenseDTO newExpense)
         {
             var lands = this.GetLands();
-                
             var expirationMonth = newExpense.ExpirationDate.Value.Month;
             var expirationYear = newExpense.ExpirationDate.Value.Year;
+            var oldeExpense = _context.Expenses.FirstOrDefault(e => e.ExpirationDate.Value.Month == expirationMonth && e.ExpirationDate.Value.Year == expirationYear);
+            if (oldeExpense is not null)
+            {
+                return new List<Expense>();
+            }
             var expenseList = new List<Expense>();
             var idExpense = _context.Expenses.Max(e => e.Id);
             

@@ -5,22 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace tpi.Migrations
 {
-    public partial class seedingExpenses : Migration
+    public partial class LastMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Persons_PersonTypes_TipoPersonaId",
-                table: "Persons");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Persons_TipoPersonaId",
-                table: "Persons");
-
-            migrationBuilder.DropColumn(
-                name: "TipoPersonaId",
-                table: "Persons");
-
             migrationBuilder.CreateTable(
                 name: "ActivityMain",
                 columns: table => new
@@ -120,6 +108,20 @@ namespace tpi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "GeographicBlocks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Price = table.Column<decimal>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GeographicBlocks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GeographicCoveredAreas",
                 columns: table => new
                 {
@@ -131,6 +133,41 @@ namespace tpi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_GeographicCoveredAreas", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Type = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Persons",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    Password = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    PersonTypeId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persons", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Persons_PersonTypes_PersonTypeId",
+                        column: x => x.PersonTypeId,
+                        principalTable: "PersonTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -222,8 +259,8 @@ namespace tpi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     LandId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Period = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    ExpirationDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ExpirationDate = table.Column<DateTime>(type: "Date", nullable: true),
+                    DatePaid = table.Column<DateTime>(type: "Date", nullable: true),
                     TotalCost = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
@@ -270,17 +307,17 @@ namespace tpi.Migrations
             migrationBuilder.InsertData(
                 table: "ActivityWorkLoads",
                 columns: new[] { "Id", "Name", "Price" },
-                values: new object[] { 1, "Micro Empresa", 100m });
+                values: new object[] { 1, "Sólo días hábiles", 100m });
 
             migrationBuilder.InsertData(
                 table: "ActivityWorkLoads",
                 columns: new[] { "Id", "Name", "Price" },
-                values: new object[] { 2, "PyME", 4000m });
+                values: new object[] { 2, "Todos los días (diurno)", 4000m });
 
             migrationBuilder.InsertData(
                 table: "ActivityWorkLoads",
                 columns: new[] { "Id", "Name", "Price" },
-                values: new object[] { 3, "Grande", 7000m });
+                values: new object[] { 3, "24/7", 7000m });
 
             migrationBuilder.InsertData(
                 table: "EnvironmentalGases",
@@ -343,6 +380,21 @@ namespace tpi.Migrations
                 values: new object[] { 3, "Grande", 600m });
 
             migrationBuilder.InsertData(
+                table: "GeographicBlocks",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 1, "A", 100m });
+
+            migrationBuilder.InsertData(
+                table: "GeographicBlocks",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 2, "B", 200m });
+
+            migrationBuilder.InsertData(
+                table: "GeographicBlocks",
+                columns: new[] { "Id", "Name", "Price" },
+                values: new object[] { 3, "C", 300m });
+
+            migrationBuilder.InsertData(
                 table: "GeographicCoveredAreas",
                 columns: new[] { "Id", "Name", "Price" },
                 values: new object[] { 1, "Hasta 40%", 1000m });
@@ -356,6 +408,36 @@ namespace tpi.Migrations
                 table: "GeographicCoveredAreas",
                 columns: new[] { "Id", "Name", "Price" },
                 values: new object[] { 3, "Hasta 80%", 6000m });
+
+            migrationBuilder.InsertData(
+                table: "PersonTypes",
+                columns: new[] { "Id", "Type" },
+                values: new object[] { 1, "Super Admin" });
+
+            migrationBuilder.InsertData(
+                table: "PersonTypes",
+                columns: new[] { "Id", "Type" },
+                values: new object[] { 2, "Admin" });
+
+            migrationBuilder.InsertData(
+                table: "PersonTypes",
+                columns: new[] { "Id", "Type" },
+                values: new object[] { 3, "Usuario" });
+
+            migrationBuilder.InsertData(
+                table: "Persons",
+                columns: new[] { "Id", "Email", "Name", "Password", "PersonTypeId" },
+                values: new object[] { 1, "superadmin@email.com", "Esteban Quito", "superadmin", 1 });
+
+            migrationBuilder.InsertData(
+                table: "Persons",
+                columns: new[] { "Id", "Email", "Name", "Password", "PersonTypeId" },
+                values: new object[] { 2, "admin@email.com", "Igor Dito", "admin", 2 });
+
+            migrationBuilder.InsertData(
+                table: "Persons",
+                columns: new[] { "Id", "Email", "Name", "Password", "PersonTypeId" },
+                values: new object[] { 3, "user@email.com", "Armando Escandalo", "user", 3 });
 
             migrationBuilder.InsertData(
                 table: "Persons",
@@ -402,10 +484,125 @@ namespace tpi.Migrations
                 columns: new[] { "Id", "ActivityMainId", "ActivityStaffSizeId", "ActivityWorkLoadId", "EnvironmentalGasesId", "EnvironmentalWasteId", "EnvironmentalWaterConsumptionId", "GeographicAreaId", "GeographicBlockId", "GeographicCoveredAreaId", "PersonId" },
                 values: new object[] { 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Persons_PersonTypeId",
-                table: "Persons",
-                column: "PersonTypeId");
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 1, new DateTime(2022, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 20300.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 2, new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 18400.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 3, null, new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 22800.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 4, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 20900.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 5, new DateTime(2022, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 18100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 6, new DateTime(2022, 6, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 20000.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 7, new DateTime(2022, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 15100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 8, null, new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 25600.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 9, null, new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 20000.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 10, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 25500.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 11, new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 22400.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 12, new DateTime(2022, 6, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 28300.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 13, new DateTime(2022, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 21500.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 14, new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 21100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 15, new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 30400.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 16, new DateTime(2022, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 22100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 17, new DateTime(2022, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 21400.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 18, new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 21800.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 19, new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, 25500.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 20, new DateTime(2022, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, 1100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 21, new DateTime(2022, 6, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 7, 21100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 22, new DateTime(2022, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, 10100.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 23, new DateTime(2022, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, 10500.0 });
+
+            migrationBuilder.InsertData(
+                table: "Expenses",
+                columns: new[] { "Id", "DatePaid", "ExpirationDate", "LandId", "TotalCost" },
+                values: new object[] { 24, new DateTime(2022, 6, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 8, 12100.0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Expenses_LandId",
@@ -462,21 +659,14 @@ namespace tpi.Migrations
                 table: "Lands",
                 column: "PersonId");
 
-            migrationBuilder.AddForeignKey(
-                name: "FK_Persons_PersonTypes_PersonTypeId",
+            migrationBuilder.CreateIndex(
+                name: "IX_Persons_PersonTypeId",
                 table: "Persons",
-                column: "PersonTypeId",
-                principalTable: "PersonTypes",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                column: "PersonTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Persons_PersonTypes_PersonTypeId",
-                table: "Persons");
-
             migrationBuilder.DropTable(
                 name: "Expenses");
 
@@ -505,34 +695,16 @@ namespace tpi.Migrations
                 name: "GeographicAreas");
 
             migrationBuilder.DropTable(
+                name: "GeographicBlocks");
+
+            migrationBuilder.DropTable(
                 name: "GeographicCoveredAreas");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Persons_PersonTypeId",
-                table: "Persons");
+            migrationBuilder.DropTable(
+                name: "Persons");
 
-            migrationBuilder.DeleteData(
-                table: "Persons",
-                keyColumn: "Id",
-                keyValue: 4);
-
-            migrationBuilder.AddColumn<int>(
-                name: "TipoPersonaId",
-                table: "Persons",
-                type: "INTEGER",
-                nullable: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Persons_TipoPersonaId",
-                table: "Persons",
-                column: "TipoPersonaId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Persons_PersonTypes_TipoPersonaId",
-                table: "Persons",
-                column: "TipoPersonaId",
-                principalTable: "PersonTypes",
-                principalColumn: "Id");
+            migrationBuilder.DropTable(
+                name: "PersonTypes");
         }
     }
 }

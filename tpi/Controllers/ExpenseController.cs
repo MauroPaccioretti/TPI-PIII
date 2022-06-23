@@ -40,6 +40,10 @@ namespace tpi.Controllers
                 if (newExpense == null)
                     return NotFound();
                 var expensesCreated = _appDBRespository.AddNewExpenses(newExpense);
+                if (expensesCreated.Count == 0)
+                {
+                    return NoContent();
+                }
                 if (_appDBRespository.SaveChanges())
                 {
                     return Ok(_mapper.Map<List<ExpenseDTO>>(expensesCreated));
