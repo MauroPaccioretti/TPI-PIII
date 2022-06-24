@@ -7,17 +7,21 @@ namespace tpi.Services
     {
         IEnumerable<Person> GetPersons();
         Person? GetPersonById(int id);
-        public Person? GetPersonByEmailAndPassword(string? email, string? password);
-        PersonType? GetPersonType(int idPersona);
+        Person? GetPersonByEmailAndPassword(string? email, string? password);
+        PersonType? GetPerson_PersonType(int idPersona);
         bool SaveChanges();
         IEnumerable<PersonType> GetPersonTypes();
-        public object? GetAuxLandProperties(string databaseSet);
-        public List<Land> GetUserLands(int idPerson);
-        public List<List<Expense>> GetExpensesByUser(int personId);
-        public List<Expense> GetExpenses();
-        public List<List<Expense>> GetExpensesUnpaid();
-        public object? GetLandById(int idLand);
-        public List<Expense> AddNewExpenses(ExpenseDTO newExpense);
-        public Expense? GetExpenseById(int expenseId);
+        PersonType? GetPersonType(int idPersonType);
+        object? GetAuxLandProperties(string databaseSet);
+        List<Land> GetUserLands(int idPerson);
+        List<List<Expense>> GetExpensesByUser(int personId);
+        object? GetLandById(int idLand);
+        List<Expense> AddNewExpenses(ExpenseDTO newExpense);
+        Expense? GetExpenseById(int expenseId);
+        void DeletePerson(Person personToDelete);
+        int CreatePerson(Person newPerson);
+        Person? GetPersonByEmail(string email);
+        List<Expense> GetExpenses();
+        List<List<Expense>> GetExpensesUnpaid();
     }
 }

@@ -7,8 +7,8 @@ namespace tpi.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("api/users")]
-    public class UserController : ControllerBase
+    [Route("api/login")]
+    public class LogInController : ControllerBase
     {
         [HttpGet]
         public ActionResult<string> GetRole()
@@ -21,7 +21,7 @@ namespace tpi.Controllers
             if (roleClaim == null || nameClaim == null || idClaim == null)
                 return BadRequest("Usuario no encontrado");
 
-            UserDTO user = new UserDTO(nameClaim, roleClaim, idClaim);
+            LogInDTO user = new LogInDTO(nameClaim, roleClaim, idClaim);
 
             return Ok(user);
         }

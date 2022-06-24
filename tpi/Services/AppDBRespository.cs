@@ -20,7 +20,11 @@ namespace tpi.Services
 
         public Person? GetPersonById(int id)
         {
-            return _context.Persons.Where(p => p.Id == id).FirstOrDefault();
+            return _context.Persons.FirstOrDefault(p => p.Id == id);
+        }
+        public Person? GetPersonByEmail(string email)
+        {
+            return _context.Persons.FirstOrDefault(p => p.Email == email);
         }
 
         public Person? GetPersonByEmailAndPassword(string? email, string? password)
@@ -36,8 +40,12 @@ namespace tpi.Services
         {
             return _context.PersonTypes.ToList();
         }
+        public PersonType? GetPersonType(int idPersonType)
+        {
+            return _context.PersonTypes.FirstOrDefault(x => x.Id == idPersonType);
+        }
 
-        public PersonType? GetPersonType(int idPersona)
+        public PersonType? GetPerson_PersonType(int idPersona)
         {
             return _context.Persons.FirstOrDefault(p => p.Id == idPersona)?.PersonType;
         }
@@ -142,6 +150,26 @@ namespace tpi.Services
         public Expense? GetExpenseById(int expenseId)
         {
             return _context.Expenses.FirstOrDefault(e => e.Id == expenseId);
+        }
+
+        public void DeletePerson(Person personToDelete)
+        {
+            _context.Persons.Remove(personToDelete);
+        }
+
+        public int CreatePerson(Person newPerson)
+        {
+            var person = _context.Persons.FirstOrDefault(p => p.Email == newPerson.Email);
+            if (person is not null)
+            {
+                return 0;
+            }
+            if(this.GetPersonType(newPerson.PersonTypeId) is not null)
+            {
+                _context.Persons.Add(newPerson);
+                return 1;
+            }
+            return 0;
         }
     }
 }

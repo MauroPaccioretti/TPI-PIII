@@ -1,12 +1,12 @@
 ﻿namespace tpi.Models
 {
-    public class UserDTO
+    public class LogInDTO
     {
         public string Name { get; set; }
         public string Role { get; set; }
         public string Id { get; set; }
 
-        public UserDTO(string name, string role, string id)
+        public LogInDTO(string name, string role, string id)
         {
             Name = name;
             Role = role;
