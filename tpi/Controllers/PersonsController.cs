@@ -26,6 +26,14 @@ namespace tpi.Controllers
 
   
         }
+        public ActionResult<IEnumerable<PersonWithLandsDTO>> GetPersonsWithLands()
+        {
+            var personsWithLands = _appDBRespository.GetPersonsWithLands();
+
+            return Ok(_mapper.Map<IEnumerable<PersonWithLandsDTO>>(personsWithLands));
+
+
+        }
 
         [HttpGet("{idPerson}", Name = "GetPerson")]
         public ActionResult<IEnumerable<PersonDTO>> GetPerson(int idPerson)

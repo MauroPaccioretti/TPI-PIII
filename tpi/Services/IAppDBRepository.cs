@@ -23,5 +23,6 @@ namespace tpi.Services
         Person? GetPersonByEmail(string email);
         List<Expense> GetExpenses();
         List<List<Expense>> GetExpensesUnpaid();
+        IEnumerable<PersonWithLandsDTO> GetPersonsWithLands();
     }
 }

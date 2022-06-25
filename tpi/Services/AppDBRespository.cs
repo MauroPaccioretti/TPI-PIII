@@ -171,5 +171,28 @@ namespace tpi.Services
             }
             return 0;
         }
+        public IEnumerable<PersonWithLandsDTO> GetPersonsWithLands()
+        {
+            var personWithLandsList = new List<PersonWithLandsDTO>();
+            var landDTOlist = new List<LandAuxDTO>();
+            var persons = this.GetPersons();
+            var lands = this.GetLands();
+
+            foreach (var land in lands)
+            {
+                var landDTO = _mapper.Map<LandAuxDTO>(land);
+                landDTOlist.Add(landDTO);
+            }
+
+
+            foreach (var person in persons)
+            {
+                var personWithLandDTO = _mapper.Map<PersonWithLandsDTO>(person);
+                var landslist = landDTOlist.Where(l => l.PersonId == person.Id).ToList();
+                personWithLandDTO.LandsList = landslist;
+                personWithLandsList.Add(personWithLandDTO);
+            }
+            return personWithLandsList;
+        }
     }
 }
