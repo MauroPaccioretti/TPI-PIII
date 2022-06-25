@@ -171,7 +171,7 @@ namespace tpi.Services
             }
             return 0;
         }
-        public IEnumerable<PersonWithLandsDTO> GetPersonsWithLands()
+        public List<PersonWithLandsDTO> GetPersonsWithLands()
         {
             var personWithLandsList = new List<PersonWithLandsDTO>();
             var landDTOlist = new List<LandAuxDTO>();
@@ -189,6 +189,10 @@ namespace tpi.Services
             {
                 var personWithLandDTO = _mapper.Map<PersonWithLandsDTO>(person);
                 var landslist = landDTOlist.Where(l => l.PersonId == person.Id).ToList();
+                if (personWithLandDTO.LandsList != null)
+                {
+                    continue;
+                }
                 personWithLandDTO.LandsList = landslist;
                 personWithLandsList.Add(personWithLandDTO);
             }
