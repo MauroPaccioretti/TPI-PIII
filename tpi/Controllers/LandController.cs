@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using tpi.Models;
 using tpi.Services;
@@ -7,6 +8,7 @@ namespace tpi.Controllers
 {
     [ApiController]
     [Route("api/land")]
+    [Authorize]
     public class LandController : ControllerBase
     {
         private readonly IAppDBRepository _appDBRespository;

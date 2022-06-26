@@ -2,11 +2,13 @@
 using tpi.Services;
 using tpi.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace tpi.Controllers
 {
     [ApiController]
     [Route("api/persons")]
+    [Authorize]
     public class PersonsController : ControllerBase
     {
         private readonly IAppDBRepository _appDBRespository;
