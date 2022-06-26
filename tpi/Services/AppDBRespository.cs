@@ -178,30 +178,18 @@ namespace tpi.Services
             }
             return 0;
         }
+
         public List<PersonWithLandsDTO> GetPersonsWithLands()
         {
-            var personWithLandsList = new List<PersonWithLandsDTO>();
-            var landDTOlist = new List<LandAuxDTO>();
             var persons = this.GetPersons();
             var lands = this.GetLands();
-
-            foreach (var land in lands)
-            {
-                var landDTO = _mapper.Map<LandAuxDTO>(land);
-                landDTOlist.Add(landDTO);
-            }
-
+            var personWithLandsList = new List<PersonWithLandsDTO>();
+            var landDTOlist = _mapper.Map<List<LandAuxDTO>>(lands);
 
             foreach (var person in persons)
             {
                 var personWithLandDTO = _mapper.Map<PersonWithLandsDTO>(person);
-                var landslist = landDTOlist.Where(l => l.PersonId == person.Id).ToList();
-                if (personWithLandDTO.LandsList != null)
-                {
-                    continue;
-                }
-                personWithLandDTO.LandsList = landslist;
-                
+                personWithLandDTO.LandsList = landDTOlist.Where(l => l.PersonId == person.Id).ToList();
                 personWithLandsList.Add(personWithLandDTO);
             }
             return personWithLandsList;
