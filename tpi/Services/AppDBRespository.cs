@@ -20,7 +20,7 @@ namespace tpi.Services
 
         public Person? GetPersonById(int id)
         {
-            return _context.Persons.FirstOrDefault(p => p.Id == id);
+            return _context.Persons.Include(p => p.PersonType).FirstOrDefault(p => p.Id == id);
         }
         public Person? GetPersonByEmail(string email)
         {
@@ -106,12 +106,19 @@ namespace tpi.Services
         }
         public List<Expense> GetExpenses()
         {
-            return _context.Expenses.ToList();
+            return _context.Expenses.OrderBy(x => x.LandId).ThenBy(x => x.ExpirationDate).ToList();
         }
         public List<List<Expense>> GetExpensesUnpaid()
         {
-            return _context.Expenses.Where(e => e.DatePaid == null).GroupBy(x => x.LandId)
-                .Select(x => x.ToList()).ToList();
+            var expenses = _context.Expenses.Where(e => e.DatePaid == null);
+            var expensesGrouped = expenses.GroupBy(x => x.LandId)
+                .Select( p=>p.ToList()).ToList()
+                .Select( p=> p.OrderBy(x=> x.ExpirationDate));
+            var res = expensesGrouped.Select(x=> x.ToList()).ToList();
+            
+         
+            return res;
+
         }
 
         public bool SaveChanges()
@@ -194,9 +201,11 @@ namespace tpi.Services
                     continue;
                 }
                 personWithLandDTO.LandsList = landslist;
+                
                 personWithLandsList.Add(personWithLandDTO);
             }
             return personWithLandsList;
         }
+
     }
 }

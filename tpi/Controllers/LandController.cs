@@ -53,6 +53,28 @@ namespace tpi.Controllers
 
 
         }
+        [HttpPut("changeowner/{idLand}")]
+        public ActionResult<LandToUpdateDTO> EditLandOwner(int idLand, LandToUpdateOwnerDTO landToUpdateOwner)
+        {
+
+            try
+            {
+                var land = _appDBRespository.GetLandById(idLand);
+                if (land == null)
+                    return NotFound();
+
+                _mapper.Map(landToUpdateOwner, land);
+                _appDBRespository.SaveChanges();
+                return NoContent();
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+
+        }
 
     }
 }

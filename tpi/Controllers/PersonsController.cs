@@ -103,6 +103,25 @@ namespace tpi.Controllers
                 personToReturn); 
         }
 
+        [HttpPut("{idPerson}")]
+        public ActionResult<PersonToUpdateDTO> EditPerson(int idPerson, PersonToUpdateDTO personToUpdate)
+        {
+            try
+            {
+                var person = _appDBRespository.GetPersonById(idPerson);
+                if (person == null)
+                    return NotFound();
+
+                _mapper.Map(personToUpdate, person);
+                _appDBRespository.SaveChanges();
+                return NoContent();
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
 
     }
 }

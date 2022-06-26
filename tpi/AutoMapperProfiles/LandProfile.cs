@@ -11,6 +11,7 @@ namespace tpi.AutoMapperProfiles
             CreateMap<Models.LandDTO, Entities.Land >();
             CreateMap<Entities.Land, Models.LandWithExpensesDTO>();
             CreateMap<Models.LandToUpdateDTO, Entities.Land>();
+            CreateMap<Models.LandToUpdateOwnerDTO, Entities.Land>();
         }
     }
 }
