@@ -161,6 +161,18 @@ namespace tpi.Services
 
         public void DeletePerson(Person personToDelete)
         {
+            var personWithLands = this.GetPersonsWithLands().FirstOrDefault(x => x.Id == personToDelete.Id);
+            var firstAdmin = _context.Persons.FirstOrDefault(x => x.PersonTypeId == 1);
+            if (personWithLands == null) return;
+            if (personWithLands.LandsList.Count > 0)
+            {
+                foreach(var land in personWithLands.LandsList)
+                {
+                    var entityLand = _context.Lands.FirstOrDefault(x=> x.Id == land.Id);
+                    entityLand.PersonId = firstAdmin.Id;
+                    entityLand.Person = firstAdmin;
+                }
+            }
             _context.Persons.Remove(personToDelete);
         }
 
