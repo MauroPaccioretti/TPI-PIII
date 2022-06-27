@@ -61,7 +61,7 @@ namespace tpi.Controllers
               _config["Authentication:Audience"],
               claimsForToken,
               DateTime.UtcNow,
-              DateTime.UtcNow.AddHours(1),
+              DateTime.UtcNow.AddMinutes(10),
               credentials);
 
             var tokenToReturn = new JwtSecurityTokenHandler()
