@@ -7,6 +7,7 @@ namespace tpi.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
         public PersonType PersonType { get; set; }
         public List<LandAuxDTO> LandsList { get; set; }
 
