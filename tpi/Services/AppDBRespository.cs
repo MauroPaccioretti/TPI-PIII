@@ -207,9 +207,9 @@ namespace tpi.Services
             return personWithLandsList;
         }
 
-        public List<int> GetLandsId()
+        public List<LandIdDTO> GetLandsId()
         {
-            return _context.Lands.Select(x => x.Id).OrderBy(x=>x).ToList();
+            return _mapper.Map<List<LandIdDTO>>(_context.Lands.OrderBy(x=>x.Id).ToList());
         }
 
     }

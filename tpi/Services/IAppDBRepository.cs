@@ -14,7 +14,7 @@ namespace tpi.Services
         PersonType? GetPersonType(int idPersonType);
         object? GetAuxLandProperties(string databaseSet);
         List<Land> GetUserLands(int idPerson);
-        List<int> GetLandsId();
+        List<LandIdDTO> GetLandsId();
         List<List<Expense>> GetExpensesByUser(int personId);
         object? GetLandById(int idLand);
         List<Expense> AddNewExpenses(ExpenseDTO newExpense);

@@ -20,7 +20,7 @@ namespace tpi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<int>> GetLandsId()
+        public ActionResult<List<LandIdDTO>> GetLandsId()
         {
             try
             {
