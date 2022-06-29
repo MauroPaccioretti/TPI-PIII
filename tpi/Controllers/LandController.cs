@@ -18,6 +18,20 @@ namespace tpi.Controllers
             _appDBRespository = appDBRespository;
             _mapper = mapper;
         }
+
+        [HttpGet]
+        public ActionResult<List<int>> GetLandsId()
+        {
+            try
+            {
+                return Ok(_appDBRespository.GetLandsId());
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpGet("{idPerson}")]
         public ActionResult<List<LandDTO>> GetUserLands(int idPerson)
         {

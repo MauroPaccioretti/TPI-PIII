@@ -207,5 +207,10 @@ namespace tpi.Services
             return personWithLandsList;
         }
 
+        public List<int> GetLandsId()
+        {
+            return _context.Lands.Select(x => x.Id).OrderBy(x=>x).ToList();
+        }
+
     }
 }

@@ -7,6 +7,7 @@ namespace tpi.AutoMapperProfiles
         public LandProfile()
         {
             CreateMap<Entities.Land, Models.LandDTO>();
+            CreateMap<Models.LandIdDTO, Entities.Land>();
             CreateMap<Entities.Land, Models.LandAuxDTO>();
             CreateMap<Models.LandDTO, Entities.Land >();
             CreateMap<Entities.Land, Models.LandWithExpensesDTO>();
